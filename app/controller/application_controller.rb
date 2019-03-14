@@ -7,10 +7,4 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "Qweasd34"
   end
   
-  get '/' do 
-    "Hello"
-  end
-  
-  
-  
 end

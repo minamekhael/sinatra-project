@@ -1,5 +1,8 @@
 require_relative './config/enviornment'
+require './config/enviornment'
 
-if ActiveRecord ::Migrator.needs_migration? 
-  raise 'Migrations are pending. Run 'rake db:migrate' to resolve the issue.'
-end
+use Rack::MethodOverride 
+use PostsController
+use SessionsController
+use Rack::Session::Cookie
+run ApplicationController
