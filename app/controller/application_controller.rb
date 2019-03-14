@@ -7,4 +7,9 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "Qweasd34"
   end
   
+  helpers do 
+    def logged_in
+      !!session[:email]
+    end
+    
 end

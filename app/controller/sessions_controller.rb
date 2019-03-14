@@ -8,5 +8,9 @@ class SessionsController < ApplicationController
    session[:email] = params[:email]
    redirect '/posts'
   end
+  
+  get '/logout' do
+    session.clear
+  end
 
 end
