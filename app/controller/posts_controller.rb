@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   end
   
   get '/posts/new' do 
-    if !session[:email]
+    if !logged_in?
       redirect "/login"
     else 
       "A new post form"
@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
   
   get '/posts/:id/edit' do
-    if !session[:email]
+    if !logged_in?
       redirect "/login"
     else 
       "An edit post form"
