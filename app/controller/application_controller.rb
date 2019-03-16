@@ -7,6 +7,10 @@ class ApplicationController < Sinatra::Base
     set :session_secret, "Qweasd34"
   end
   
+  get '/' do 
+    erb :"sessions/homepage.html"
+  end
+  
   helpers do 
       def logged_in?
         !!current_user
