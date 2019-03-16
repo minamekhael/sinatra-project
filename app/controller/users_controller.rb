@@ -4,7 +4,7 @@ class UsersController < ApplicationController
     erb :"users/new.html"
   end
   
-  get '/users' do
+  post '/users' do
     @user = User.new
     @user.email = params[:email]
     @user.password = params[:password]
