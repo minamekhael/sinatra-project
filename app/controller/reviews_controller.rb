@@ -24,7 +24,6 @@ class ReviewsController < ApplicationController
    if review.save
      redirect "/reviews/#{review.id}"
    else
-     flash[:message] = "Sorry! Reviews must have a title, description, and rating. Please try again."
      redirect '/reviews/new'
    end
  end
@@ -54,7 +53,7 @@ class ReviewsController < ApplicationController
 
  patch '/reviews/:id' do
   @review = current_user.reviews.find_by_id(params[:id])
-  #  @review = Review.find_by_id(params[:id])
+
   if @review
     if @review.update(params[:review])
      redirect '/reviews'
