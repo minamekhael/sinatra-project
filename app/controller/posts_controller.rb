@@ -1,14 +1,14 @@
 class PostsController < ApplicationController
   
   get '/posts' do 
-    "A list of publicly avaialable posts"
+    erb :"sessions/posts.html"
   end
   
   get '/posts/new' do 
     if !logged_in?
       redirect "/login"
     else 
-      "A new post form"
+      erb :"sessions/posts.html"
     end
   end
   
