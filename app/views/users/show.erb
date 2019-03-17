@@ -1,0 +1,9 @@
+
+<h3> Here are your reviews, <%= current_user.username %></h3>
+<% current_user.post.each do |post| %>
+  <ul> 
+    <li><h4><a href="/posts/<%=post.id%>"><%= post.name %></a></h4></li>
+    <a href="/posts/<%=list.id%>/edit">Edit </a> |&nbsp;<a href="/posts/new">Add </a>
+  </ul>
+
+<% end %>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+  <style>
+      .todo {
+        font-family: 'Shadows Into Light', cursive;
+        right: -5px;
+        top: -20px;
+      }
+    </style>
+  <title>High Seas Seafood Reviews</title> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+</head>
+<body>
+<div>
+ <nav class="navbar navbar-default navbar-static-top" style="background: #F1F1F1">
+  <div class="container">
+    <% if logged_in? %>
+   <h1 class="todo"><u><strong>High Seas</strong></u> :Seafood Review</h1> 
+   <h4>
+      <a href="/lists/new"> Write a Review </a> |
+      <a href="/lists"> View Reviews </a> |
+      <a href="/logout"> Log Out </a>
+    </h4>  
+
+    <% else %>
+   <h1 class="todo"><u><strong>High Seas</strong></u> :Seafood Review</h1> 
+    <h4>
+      <a href="/signup">Sign Up</a> |
+      <a href="/login"> Sign In </a> 
+    </h4>
+    <%end %>
+
+  </nav>
+</div>
+<nav>
+  <div class="container">
+    <% if !@error_message.nil? %>
+    <div class="alert alert-warning">
+      <%= @error_message %>
+    </div>
+  <% end %>
+    <%= yield %>
+
+  </div>
+</nav>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>  
+</body>
+</html>

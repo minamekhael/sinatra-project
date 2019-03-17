@@ -1,16 +1,16 @@
 class ApplicationController < Sinatra::Base
-  
+
   configure do 
     set :public_folder, 'public'
     set :views, 'app/views'
     enable :sessions 
     set :session_secret, "Qweasd34"
   end
-  
-  get '/' do 
-    erb :"sessions/homepage.html"
+
+  get '/' do
+    erb :index
   end
-  
+
   helpers do 
       def logged_in?
         !!current_user
