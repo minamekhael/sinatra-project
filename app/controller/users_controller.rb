@@ -1,63 +1,58 @@
 class UsersController < ApplicationController
 
-  get '/users/:id' do
-    if !logged_in?
-      redirect '/posts'
-    end
-
-    @user = User.find(params[:id])
-    if @user == current_user && !@user.nil?
-      erb :'users/show'
-    else
-      redirect '/posts'
-    end
-  end
-  
   get '/signup' do
-    if !session[:user_id]
-      erb :'users/new'
+    if !logged_in?
+      erb :'users/create_user'
     else
-      redirect to '/posts'
+      redirect '/reviews'
     end
   end
 
   post '/signup' do
-    if params[:user_name] == "" || params[:password] == ""
-      redirect to '/signup'
-    else 
-      @user = User.create(username: params[:username], password: params[:password])
-      session[:user_id] = @user.id
-      redirect "/lists"
-    end
-  end
+    @user = User.new(params)
+     if @user.save
+       session[:user_id] = @user.id
+       redirect '/reviews'
+     else
+       flash[:message] = @user.errors.full_messages.join(", ")
+       redirect '/signup'
+     end
+   end
+    # if params[:username].empty? || params[:password].empty? #no sign-up w/o username or pw
+    #   flash[:message] = "Your username or password can't be empty."
+    #   redirect '/signup'
+    # else
+    #   @user = User.create(username: params[:username], password: params[:password])
+    #   session[:user_id] = @user.id
+    #   redirect '/reviews'
+    # end
+
 
   get '/login' do
-    @error_message = params[:error]
-    if !session[:user_id]
-      erb :'users/login'
+    if logged_in?
+      redirect '/reviews'
     else
-      redirect '/lists'
+      erb :'users/login'
     end
   end
 
   post '/login' do
-    user = User.find_by(username: params[:username])
-    if user && user.authenticate(params[:password])
-      session[:user_id] = user.id
-      redirect "/lists"
+    @user = User.find_by(username: params[:username]) #find the user
+    if @user && @user.authenticate(params[:password]) #check password is a match
+      session[:user_id] = @user.id   #log them in
+      redirect '/reviews' #show them their reviews
     else
-      redirect "/signup"
+      flash[:message] = "Your username or password were incorrect. Please try again."
+      erb :'users/login'
     end
   end
 
   get '/logout' do
-    if session[:user_id] != nil
+    if logged_in?
       session.clear
-      redirect to '/login'
+      redirect '/login'
     else
-      redirect to '/'
+      redirect '/'
     end
   end
-
-
-end
+end 
